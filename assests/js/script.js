@@ -23,6 +23,7 @@ var questions = [
     }
 ];
 
+var localStorageName = "highscores";
 var defaultCurrentQuestion = 0;
 var currentQuestion = defaultCurrentQuestion;
 var defaultCurrentScore = 0;
@@ -33,7 +34,7 @@ var timePenalty = 10;
 var quizContainerEl = document.querySelector('#quiz-container');
 var scoreEl = document.querySelector('#view-score');
 var timerEl = document.querySelector('#timer');
-//create highscore in local score if it doesn't exist
+var highScoresBtnEl = document.querySelector("#view-score");
 
 //create element helper function
 var createElement = function (type, properties) {
@@ -184,6 +185,11 @@ var displayStopGame = function () {
     quizContainerEl.appendChild(initialForm);
 }
 
+var clearHighScores = function () {
+    localStorage.setItem(localStorageName, "");
+    displayHighScore();
+}
+
 //assign sumbitlocalstorage to submit button
 var handleSubmit = function () {
     var playerInitials = document.querySelector("#initials").value;
@@ -191,32 +197,72 @@ var handleSubmit = function () {
     displayHighScore();
 }
 
+var loadHighScores = function() {
+    var scores = localStorage.getItem(localStorageName);
+    if (scores === null || scores === "") {
+        scores = [];
+    } else {
+        scores = JSON.parse(scores);
+    }
+    return scores;
+}
 
 var submitLocalStorage = function (initials, highscore) {
-    //add name and score to local storage
-    
+    //load highscors and assign to variable
+    var scores = loadHighScores();
+    var newHighScore = {
+        initials: initials,
+        highscore: highscore,
+    }
+    //add the initials and highscore to highscore list
+    scores.push(newHighScore);
+    //write the updates list to local storage
+    localStorage.setItem(localStorageName, JSON.stringify(scores));
 }
 
 //display high scores
 var displayHighScore = function() {
     destroyElement();
-    //displays whats in local storage as dom elements on high score table
     //gives button options to delete highscore 
     var finalScoreHeader = createElement("h2");
     finalScoreHeader.textContent = "High Scores";
     quizContainerEl.appendChild(finalScoreHeader);
     var clearScoresBtn = createElement("button");
     clearScoresBtn.textContent = "Wipe away your dreams.";
+    clearScoresBtn.addEventListener("click", clearHighScores);
     var goBackBtn = createElement("button");
     goBackBtn.textContent = "Go back.";
     goBackBtn.addEventListener("click", displayStartScreen);
+    //displays whats in local storage as dom elements on high score table
+    //loadinng high scores and submiting to variable
+    var scores = loadHighScores();
+    //if no highscores, show empty state
+    if (scores.length === 0) {
+        var emptyOption = createElement("p");
+        emptyOption.textContent = "No highscores to display!";
+        quizContainerEl.appendChild(emptyOption);
+    } else {
+        //loop through the array and make each element for page
+        for (var i = 0; i < scores.length; i++) {
+            var score = scores[i];
+            var scoreRow = createElement("div");
+            scoreRow.textContent = (i + 1) + ". " + score.initials + " - " + score.highscore;
+            quizContainerEl.appendChild(scoreRow);
+        }
+    }
     quizContainerEl.appendChild(clearScoresBtn);
     quizContainerEl.appendChild(goBackBtn);
-
     
-    //or calls displaystartscreen
 }
 
 //call display start screen
 displayStartScreen();
+highScoresBtnEl.addEventListener("click", displayHighScore);
 
+
+//noticed bugs
+//timer doesn't restart on new game
+//you can submit blank initials
+//pause timer when you end the game
+//doesn't display high score yet
+//create highscore in local score if it doesn't exist

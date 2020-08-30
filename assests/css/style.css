@@ -2,3 +2,22 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    width: 800px;
+    display: flex;
+    color: blue;
+}
+
+.top-wrapper {
+    justify-content: space-between;
+}
+
+.main-container {
+    justify-content: center;
+    align-content: center;
+}
+
+.highscore {
+
+}
