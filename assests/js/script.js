@@ -199,13 +199,24 @@ var submitLocalStorage = function (initials, highscore) {
 
 //display high scores
 var displayHighScore = function() {
-    //displays whats in local storage as dom elements
+    destroyElement();
+    //displays whats in local storage as dom elements on high score table
     //gives button options to delete highscore 
+    var finalScoreHeader = createElement("h2");
+    finalScoreHeader.textContent = "High Scores";
+    quizContainerEl.appendChild(finalScoreHeader);
+    var clearScoresBtn = createElement("button");
+    clearScoresBtn.textContent = "Wipe away your dreams.";
+    var goBackBtn = createElement("button");
+    goBackBtn.textContent = "Go back.";
+    goBackBtn.addEventListener("click", displayStartScreen);
+    quizContainerEl.appendChild(clearScoresBtn);
+    quizContainerEl.appendChild(goBackBtn);
+
+    
     //or calls displaystartscreen
 }
 
 //call display start screen
 displayStartScreen();
-//button to start quiz and other events
-//add start game to button click event
 
