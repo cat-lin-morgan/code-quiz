@@ -33,9 +33,8 @@ var timePenalty = 10;
 var quizContainerEl = document.querySelector('#quiz-container');
 var scoreEl = document.querySelector('#view-score');
 var timerEl = document.querySelector('#timer');
-
-//helper function
 //create highscore in local score if it doesn't exist
+
 //create element helper function
 var createElement = function (type, properties) {
     // Type should be a string, properties should be an object
@@ -61,7 +60,7 @@ var displayStartScreen = function() {
     headerOne.textContent = "Welcome To Cat's Coding Quiz";
     var introParagraph = createElement("p");
     introParagraph.textContent = "Click thru the questions in a short amount of time to prove your worth of being in the class.";
-    //assign startGame to star button
+    //assign startGame to start button
     var startBtn = createElement("button");
     startBtn.textContent = "Start Game";
     startBtn.addEventListener("click", startGame);
@@ -87,7 +86,7 @@ var startCountdown = function() {
 }
 
 var resetGame = function () {
-    //set current q, current score, and current original values
+    //set current q, current score, and current time
     currentTimer = defaultCurrentTimer;
     currentQuestion = defaultCurrentQuestion;
     currentScore = defaultCurrentScore;
@@ -98,7 +97,7 @@ var resetGame = function () {
 var startGame = function() {
     //will call reset game
     resetGame();
-    //call start coountdwon
+    //call start countdwon
     startCountdown();
     //call display current question
     displayCurrentQuestion();
@@ -113,7 +112,6 @@ var incorrectAnswer = function () {
     setTimeout(() => {  
         displayCurrentQuestion(); 
     }, 1500);
-    
 }
 
 var correctAnswer = function() {
@@ -127,11 +125,10 @@ var correctAnswer = function() {
     }, 1500);
 }
 
-//recursive function / semi loop
 var displayCurrentQuestion = function () {
     destroyElement();
     //if there are no more questions then call stopGame
-    if (currentQuestion >= questions.length) { //might not work
+    if (currentQuestion >= questions.length) {
         console.log("out of questions");
         displayStopGame();
         return;
@@ -163,13 +160,41 @@ var displayCurrentQuestion = function () {
 
 //stop quiz
 var displayStopGame = function () {
+    //stop timer
     destroyElement();
+    //the new page renders
+    var finalScoreHeader = createElement("h2");
+    finalScoreHeader.textContent = "You're done!";
+    var finalScoreText = createElement("p");
+    finalScoreText.textContent = "Your final score is " + currentScore + ".";
+    quizContainerEl.appendChild(finalScoreHeader);
+    quizContainerEl.appendChild(finalScoreText);
     //render input and submit button
-    //assign sumbitlocalstorage to submit button
+    var initialForm = createElement("form");
+    var initialFormLabel = createElement("label", {for: "initials"});
+    initialFormLabel.textContent = "Enter Initials:";
+    var initialFormInput = createElement("input", {type: "text", id: "initials", placeholder: "Enter My Void."});
+    var initialFormBtn = createElement("button");
+    initialFormBtn.textContent = "Yeet";
+    initialForm.addEventListener("submit", handleSubmit);
+    //append all items inside the form
+    initialForm.appendChild(initialFormLabel);
+    initialForm.appendChild(initialFormInput);
+    initialForm.appendChild(initialFormBtn);
+    quizContainerEl.appendChild(initialForm);
 }
 
-var submitLocalStorage = function (name, highscore) {
+//assign sumbitlocalstorage to submit button
+var handleSubmit = function () {
+    var playerInitials = document.querySelector("#initials").value;
+    submitLocalStorage(playerInitials, currentScore);
+    displayHighScore();
+}
+
+
+var submitLocalStorage = function (initials, highscore) {
     //add name and score to local storage
+    
 }
 
 //display high scores
@@ -183,3 +208,4 @@ var displayHighScore = function() {
 displayStartScreen();
 //button to start quiz and other events
 //add start game to button click event
+
