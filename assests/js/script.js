@@ -30,6 +30,7 @@ var defaultCurrentScore = 0;
 var currentScore = defaultCurrentScore;
 var defaultCurrentTimer = 75;
 var currentTimer = defaultCurrentTimer;
+var timeInterval
 var timePenalty = 10;
 var quizContainerEl = document.querySelector('#quiz-container');
 var scoreEl = document.querySelector('#view-score');
@@ -73,9 +74,8 @@ var displayStartScreen = function() {
 //timer start function
 var startCountdown = function() {
     //every second decrease timer by one
-    var timeInterval = setInterval(function() {
+    timeInterval = setInterval(function() {
         if (currentTimer === 0) {
-            clearInterval(timeInterval);
             //if timer is zero clear timer and call stopGame
             timerEl.textContent = "You're out of time!!!";
             displayStopGame();
@@ -162,6 +162,7 @@ var displayCurrentQuestion = function () {
 //stop quiz
 var displayStopGame = function () {
     //stop timer
+    clearInterval(timeInterval);
     destroyElement();
     //the new page renders
     var finalScoreHeader = createElement("h2");
@@ -197,6 +198,7 @@ var handleSubmit = function () {
     displayHighScore();
 }
 
+//create highscore in local score if it doesn't exist
 var loadHighScores = function() {
     var scores = localStorage.getItem(localStorageName);
     if (scores === null || scores === "") {
@@ -261,8 +263,5 @@ highScoresBtnEl.addEventListener("click", displayHighScore);
 
 
 //noticed bugs
-//timer doesn't restart on new game
 //you can submit blank initials
-//pause timer when you end the game
-//doesn't display high score yet
-//create highscore in local score if it doesn't exist
+
