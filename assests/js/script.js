@@ -1,22 +1,85 @@
 //variables
 var questions = [
     {
-        text: "CAn you get knocked up off a dirty old cum rag?",
+        text: "How would you access the property 'squeak' of object 'bird'?",
         answers: [
             {
-                text: "Only on Sundays.", 
+                text: "bird.squeak", 
                 correct: true,
             },
             {
-                text: "Never",
+                text: "squeak.bird",
                 correct: false,
             },
             {
-                text: "Yes",
+                text: "birb.squeak",
                 correct: false,
             },
             {
-                text: "Only if it's fresh.",
+                text: "bird['squeak']",
+                correct: true,
+            }
+        ]
+    },
+    {
+        text: "What would you expect the output to be if you wrote 'Birb' - 'b'?",
+        answers: [
+            {
+                text: "isNaN", 
+                correct: false,
+            },
+            {
+                text: "ir",
+                correct: false,
+            },
+            {
+                text: "NaN",
+                correct: true,
+            },
+            {
+                text: "Bir",
+                correct: false,
+            }
+        ]
+    },
+    {
+        text: "How do you notify the user about Birb activity?",
+        answers: [
+            {
+                text: "window.confirm('Does the birb want a special treat today?')", 
+                correct: false,
+            },
+            {
+                text: "window.alert('Birb is loose! Close the windows!')",
+                correct: true,
+            },
+            {
+                text: "alert('Oh no! The birb is heightened and is gonna bite you!')",
+                correct: true,
+            },
+            {
+                text: "window.prompt('The birb would like head scritches please.')",
+                correct: false,
+            }
+        ]
+    },
+    {
+        text: "How would you move incrementally through the following array? var birbNames = ['Lemon', 'Ducky', 'FluffyButt']",
+        answers: [
+            {
+                text: "for (var i = 1; i < birbNames.length; i++)", 
+                correct: false,
+            },
+            {
+                text: "for (var i = 0; i < birbNames.length; i--)",
+                correct: false,
+            },
+            {
+                text: "for (var i = 0; i < birbNames.length; i++)",
+                correct: true,
+            },
+            {
+                text: "for (var  = birbNames; i < birbNames.length; i++)",
                 correct: false,
             }
         ]
@@ -32,9 +95,9 @@ var defaultCurrentTimer = 75;
 var currentTimer = defaultCurrentTimer;
 var timeInterval
 var timePenalty = 10;
-var quizContainerEl = document.querySelector('#quiz-container');
-var scoreEl = document.querySelector('#view-score');
-var timerEl = document.querySelector('#timer');
+var quizContainerEl = document.querySelector("#quiz-container");
+var scoreEl = document.querySelector("#view-score");
+var timerEl = document.querySelector("#timer");
 var highScoresBtnEl = document.querySelector("#view-score");
 
 //create element helper function
@@ -61,7 +124,7 @@ var displayStartScreen = function() {
     var headerOne = createElement("h1");
     headerOne.textContent = "Welcome To Cat's Coding Quiz";
     var introParagraph = createElement("p");
-    introParagraph.textContent = "Click thru the questions in a short amount of time to prove your worth of being in the class.";
+    introParagraph.textContent = "Answer the questions before the time runs out and see how you placed in the local leader board!";
     //assign startGame to start button
     var startBtn = createElement("button");
     startBtn.textContent = "Start Game";
@@ -193,7 +256,7 @@ var displayStopGame = function () {
     var initialForm = createElement("form");
     var initialFormLabel = createElement("label", {for: "initials"});
     initialFormLabel.textContent = "Enter Initials:";
-    var initialFormInput = createElement("input", {type: "text", id: "initials", placeholder: "Enter My Void.", maxlength: "3"});
+    var initialFormInput = createElement("input", {type: "text", id: "initials", placeholder: "Enter Initials Here.", maxlength: "3"});
     var initialFormBtn = createElement("button");
     initialFormBtn.textContent = "Yeet";
     initialForm.addEventListener("submit", handleSubmit);
@@ -274,5 +337,5 @@ highScoresBtnEl.addEventListener("click", displayHighScore);
 
 
 //noticed bugs
-//you can submit blank initials
+
 
