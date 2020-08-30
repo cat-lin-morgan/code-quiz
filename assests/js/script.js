@@ -144,7 +144,7 @@ var startCountdown = function() {
             displayStopGame();
         } else {
             currentTimer--;
-            timerEl.textContent = currentTimer;
+            timerEl.textContent = "Time: " + currentTimer;
         }
     }, 1000);
 }

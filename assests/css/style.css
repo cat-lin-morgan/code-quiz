@@ -1,19 +1,30 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    width: 800px;
     display: flex;
+    flex-direction: row;
     color: blue;
+    flex-wrap: wrap;
+}
+
+header {
+    display: block;
+    padding: 15px 25px;
+    width: 100%;
 }
 
 .top-wrapper {
+    width: 100%;
+    display: flex;
     justify-content: space-between;
 }
 
 .main-container {
+    width: 800px;
     justify-content: center;
     align-content: center;
 }
