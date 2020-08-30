@@ -130,7 +130,6 @@ var displayCurrentQuestion = function () {
     destroyElement();
     //if there are no more questions then call stopGame
     if (currentQuestion >= questions.length) {
-        console.log("out of questions");
         displayStopGame();
         return;
     }
@@ -159,6 +158,25 @@ var displayCurrentQuestion = function () {
     currentQuestion++;
 }
 
+//assign sumbitlocalstorage to submit button
+var handleSubmit = function (event) {
+    //to keep it from executing the browsers default action to refresh the page
+    event.preventDefault();
+    var playerInitials = document.querySelector("#initials").value;
+    //check to see if player initials is not blank
+    //if blank show error
+    if (playerInitials === "") {
+        alert("Gotta put something!");
+        return;
+    } else {
+        //if not blank submit
+        var makePretty = playerInitials.split(" ").join("").toUpperCase();
+        submitLocalStorage(makePretty, currentScore);
+        displayHighScore();
+    }
+}
+
+
 //stop quiz
 var displayStopGame = function () {
     //stop timer
@@ -175,7 +193,7 @@ var displayStopGame = function () {
     var initialForm = createElement("form");
     var initialFormLabel = createElement("label", {for: "initials"});
     initialFormLabel.textContent = "Enter Initials:";
-    var initialFormInput = createElement("input", {type: "text", id: "initials", placeholder: "Enter My Void."});
+    var initialFormInput = createElement("input", {type: "text", id: "initials", placeholder: "Enter My Void.", maxlength: "3"});
     var initialFormBtn = createElement("button");
     initialFormBtn.textContent = "Yeet";
     initialForm.addEventListener("submit", handleSubmit);
@@ -188,13 +206,6 @@ var displayStopGame = function () {
 
 var clearHighScores = function () {
     localStorage.setItem(localStorageName, "");
-    displayHighScore();
-}
-
-//assign sumbitlocalstorage to submit button
-var handleSubmit = function () {
-    var playerInitials = document.querySelector("#initials").value;
-    submitLocalStorage(playerInitials, currentScore);
     displayHighScore();
 }
 
