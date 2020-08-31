@@ -24,9 +24,9 @@ Please enjoy my game!
 
 Below is a gif of my game in action and below that is a collage of various game states.
 
-<img src="assests/images/codequiz.gif" alt="gif of the code game!"/>
+<img src="assets/images/codequiz.gif" alt="gif of the code game!"/>
 
-<img src="./assests/images/screencollage.png" alt="Screen shot with all four states of my application."/>
+<img src="./assets/images/screencollage.png" alt="Screen shot with all four states of my application."/>
 
 ---
 
