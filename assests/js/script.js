@@ -4,7 +4,7 @@ var questions = [
         text: "How would you access the property 'squeak' of object 'bird'?",
         answers: [
             {
-                text: "bird.squeak", 
+                text: "bird.squeak",
                 correct: true,
             },
             {
@@ -25,7 +25,7 @@ var questions = [
         text: "What would you expect the output to be if you wrote 'Birb' - 'b'?",
         answers: [
             {
-                text: "isNaN", 
+                text: "isNaN",
                 correct: false,
             },
             {
@@ -46,7 +46,7 @@ var questions = [
         text: "How do you notify the user about Birb activity?",
         answers: [
             {
-                text: "window.confirm('Does the birb want a special treat today?')", 
+                text: "window.confirm('Does the birb want a special treat today?')",
                 correct: false,
             },
             {
@@ -67,7 +67,7 @@ var questions = [
         text: "How would you move incrementally through the following array? var birbNames = ['Lemon', 'Ducky', 'FluffyButt']",
         answers: [
             {
-                text: "for (var i = 1; i < birbNames.length; i++)", 
+                text: "for (var i = 1; i < birbNames.length; i++)",
                 correct: false,
             },
             {
@@ -118,15 +118,15 @@ var destroyElement = function () {
 }
 
 //first page
-var displayStartScreen = function() {
+var displayStartScreen = function () {
     destroyElement();
     //show welcome message and start button
-    var headerOne = createElement("h1");
+    var headerOne = createElement("h1", { class: "welcome-header" });
     headerOne.textContent = "Welcome To Cat's Coding Quiz";
-    var introParagraph = createElement("p");
+    var introParagraph = createElement("p", { class: "" });
     introParagraph.textContent = "Answer the questions before the time runs out and see how you placed in the local leader board!";
     //assign startGame to start button
-    var startBtn = createElement("button");
+    var startBtn = createElement("button", { class: "start-button" });
     startBtn.textContent = "Start Game";
     startBtn.addEventListener("click", startGame);
     quizContainerEl.appendChild(headerOne);
@@ -135,12 +135,13 @@ var displayStartScreen = function() {
 }
 
 //timer start function
-var startCountdown = function() {
+var startCountdown = function () {
     //every second decrease timer by one
-    timeInterval = setInterval(function() {
-        if (currentTimer === 0) {
+    timeInterval = setInterval(function () {
+        if (currentTimer <= 0) {
             //if timer is zero clear timer and call stopGame
             timerEl.textContent = "You're out of time!!!";
+            console.log("yeet");
             displayStopGame();
         } else {
             currentTimer--;
@@ -158,7 +159,7 @@ var resetGame = function () {
 }
 
 //start quiz function
-var startGame = function() {
+var startGame = function () {
     //will call reset game
     resetGame();
     //call start countdwon
@@ -167,25 +168,34 @@ var startGame = function() {
     displayCurrentQuestion();
 }
 
+var disableAnswerButtons = function() {
+    var answerButtons = document.querySelectorAll(".answer-button")
+    for (var i = 0; i < answerButtons.length; i++) {
+        answerButtons[i].setAttribute('disabled', 'true')
+    }
+}
+
 var incorrectAnswer = function () {
+    disableAnswerButtons()
     //take away time
-    currentTimer - timePenalty;
+    currentTimer = currentTimer - timePenalty;
     var judgementEl = document.querySelector("#judgements");
     judgementEl.textContent = "WRONG!!!";
     //display next question
-    setTimeout(() => {  
-        displayCurrentQuestion(); 
+    setTimeout(() => {
+        displayCurrentQuestion();
     }, 1500);
 }
 
-var correctAnswer = function() {
+var correctAnswer = function () {
+    disableAnswerButtons()
     //increase current score
     currentScore = currentScore + 10;
     var judgementEl = document.querySelector("#judgements");
     judgementEl.textContent = "CORRECT!!!";
     //display next question
-    setTimeout(() => {  
-        displayCurrentQuestion(); 
+    setTimeout(() => {
+        displayCurrentQuestion();
     }, 1500);
 }
 
@@ -199,13 +209,13 @@ var displayCurrentQuestion = function () {
     //looks up current questions in questions array
     var question = questions[currentQuestion]
     //creat dom elements and display them
-    var questionHeader = createElement("h2");
+    var questionHeader = createElement("h2", { class: "question-header" });
     questionHeader.textContent = question.text;
     quizContainerEl.appendChild(questionHeader);
     var answers = question.answers;
-    for (var i = 0; i < answers.length; i++){
+    for (var i = 0; i < answers.length; i++) {
         var answer = answers[i];
-        var answerBtn = createElement("button");
+        var answerBtn = createElement("button", { class: "answer-button" });
         answerBtn.textContent = answer.text;
         quizContainerEl.appendChild(answerBtn);
         //assign incorrect and correct buttons
@@ -215,8 +225,10 @@ var displayCurrentQuestion = function () {
             answerBtn.addEventListener("click", incorrectAnswer);
         }
     }
-    var judgement = createElement("div", {id: "judgements"});
-    quizContainerEl.appendChild(judgement);
+    var judgementContainer = createElement("div", { class: "judge-container"});
+    var judgement = createElement("div", { id: "judgements", class: "judgement-day"});
+    quizContainerEl.appendChild(judgementContainer);
+    judgementContainer.appendChild(judgement);
     //increment currents questions
     currentQuestion++;
 }
@@ -246,18 +258,18 @@ var displayStopGame = function () {
     clearInterval(timeInterval);
     destroyElement();
     //the new page renders
-    var finalScoreHeader = createElement("h2");
+    var finalScoreHeader = createElement("h2", {class: "stop-header"});
     finalScoreHeader.textContent = "You're done!";
-    var finalScoreText = createElement("p");
+    var finalScoreText = createElement("p", {class: "final-score"});
     finalScoreText.textContent = "Your final score is " + currentScore + ".";
     quizContainerEl.appendChild(finalScoreHeader);
     quizContainerEl.appendChild(finalScoreText);
     //render input and submit button
     var initialForm = createElement("form");
-    var initialFormLabel = createElement("label", {for: "initials"});
+    var initialFormLabel = createElement("label", { for: "initials" });
     initialFormLabel.textContent = "Enter Initials:";
-    var initialFormInput = createElement("input", {type: "text", id: "initials", placeholder: "Enter Initials Here.", maxlength: "3"});
-    var initialFormBtn = createElement("button");
+    var initialFormInput = createElement("input", { type: "text", id: "initials", placeholder: "Enter Initials Here", maxlength: "3", class: "yeet-input" });
+    var initialFormBtn = createElement("button", { class: "yeet-button" });
     initialFormBtn.textContent = "Yeet";
     initialForm.addEventListener("submit", handleSubmit);
     //append all items inside the form
@@ -273,7 +285,7 @@ var clearHighScores = function () {
 }
 
 //create highscore in local score if it doesn't exist
-var loadHighScores = function() {
+var loadHighScores = function () {
     var scores = localStorage.getItem(localStorageName);
     if (scores === null || scores === "") {
         scores = [];
@@ -297,16 +309,20 @@ var submitLocalStorage = function (initials, highscore) {
 }
 
 //display high scores
-var displayHighScore = function() {
+var displayHighScore = function () {
+    //fixes bug where user visits highscore before they complete the quiz
+    //and multiple timers exist
+    clearInterval(timeInterval);
     destroyElement();
     //gives button options to delete highscore 
-    var finalScoreHeader = createElement("h2");
+    var finalScoreHeader = createElement("h2", { class: "highscore-header" });
     finalScoreHeader.textContent = "High Scores";
     quizContainerEl.appendChild(finalScoreHeader);
-    var clearScoresBtn = createElement("button");
+    var buttonContainer = createElement("div", { class: "button-container" });
+    var clearScoresBtn = createElement("button", { class: "clear-score-button highscore-btns" });
     clearScoresBtn.textContent = "Wipe away your dreams.";
     clearScoresBtn.addEventListener("click", clearHighScores);
-    var goBackBtn = createElement("button");
+    var goBackBtn = createElement("button", { class: "go-back-button highscore-btns" });
     goBackBtn.textContent = "Go back.";
     goBackBtn.addEventListener("click", displayStartScreen);
     //displays whats in local storage as dom elements on high score table
@@ -314,21 +330,22 @@ var displayHighScore = function() {
     var scores = loadHighScores();
     //if no highscores, show empty state
     if (scores.length === 0) {
-        var emptyOption = createElement("p");
+        var emptyOption = createElement("p", {class: "blank-score"});
         emptyOption.textContent = "No highscores to display!";
         quizContainerEl.appendChild(emptyOption);
     } else {
         //loop through the array and make each element for page
         for (var i = 0; i < scores.length; i++) {
             var score = scores[i];
-            var scoreRow = createElement("div");
+            var scoreRow = createElement("div", { class: "highscores-div" });
             scoreRow.textContent = (i + 1) + ". " + score.initials + " - " + score.highscore;
             quizContainerEl.appendChild(scoreRow);
         }
     }
-    quizContainerEl.appendChild(clearScoresBtn);
-    quizContainerEl.appendChild(goBackBtn);
-    
+    quizContainerEl.appendChild(buttonContainer);
+    buttonContainer.appendChild(clearScoresBtn);
+    buttonContainer.appendChild(goBackBtn);
+
 }
 
 //call display start screen
