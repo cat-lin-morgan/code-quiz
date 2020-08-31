@@ -2,37 +2,30 @@
 
 Here is a direct and working URL to my active website.
 
-[Click here for my active website!](https://cat-lin-morgan.github.io/ "Cat's Portfolio")
+[Click here for the quiz website!](https://cat-lin-morgan.github.io/code-quiz/ "Cat's Quiz Game")
 
 ## Acceptance Criteria
 
-This website represents my breath of work and creative tastes.
+This game allows the player to take a Javascript Quiz!
 
-It is viewable on multiple screen sizes, including smaller screen sizes: 980px, 768px, 575px, and 400px!
+Game starts on button click and off goes a timer!
 
-Each size has it's own unique layout which flatters each screen size respectively. 
+The game loops through several questions. 
 
-Page is complete with Nav, Sections, and Footer.
-Page has my name, contact information, and a recent photograph of me.
+When the player answers incorrectly time is taken from the player.
 
-All images and GIFs used are owned (or created) by me for me (or my "clients").
+When the player answers all questions or the timer runs out then the player is prompted with the option to enter their initials and to save their high score.
 
-All links work. They either take you to their respective sections on page or off page (off page using "target=_blank" to not disrupt your browsing).
+Both initials and player's high score are added to local storage.
 
-The first application in my grid is the biggest and they have all been organized in a way I find visually appealing.
+They are all retrieved on the highscore page.
 
-On desktop/laptop screens (980px and above) my applications have a title on hover. On smaller tablets and mobile phones the title is always there.
+Please enjoy my game!
 
-My repo is uniquely named after myself, follows best practices for file structure, naming conventions, class/ids, indentations, and quality commits.
 
-So far my repo has 25 commits and counting, and will continue to be worked on throughout my career. Each commit has an appropriate commit message.
+<img src="assests/images/codequiz.gif" alt="gif of the code game!"/>
 
-Screens shots below. 
-First is my mobile viewport. Second is my laptop viewport, remember that titles appear on hover.
-
-<img src="./assets/images/mobilescreenshot.png" alt="Mobile Screen Shot of Website at 400px."/>
-
-<img src="./assets/images/desktopscreenshot.png" alt="Desktop Screen Shot of Website at 1024px."/>
+<img src="./assests/images/screencollage.png" alt="Screen shot with all four states of my application."/>
 
 ---
 
