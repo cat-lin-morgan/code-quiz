@@ -1,6 +1,6 @@
 # Cat's Uber Fantastic Quiz Page
 
-Here is a direct and working URL to my active website.
+Here is a direct and working URL to my game website!
 
 [Click here for the quiz website!](https://cat-lin-morgan.github.io/code-quiz/ "Cat's Quiz Game")
 
@@ -10,7 +10,7 @@ This game allows the player to take a Javascript Quiz!
 
 Game starts on button click and off goes a timer!
 
-The game loops through several questions. 
+The game loops through several questions.
 
 When the player answers incorrectly time is taken from the player.
 
@@ -22,6 +22,7 @@ They are all retrieved on the highscore page.
 
 Please enjoy my game!
 
+Below is a gif of my game in action and below that is a collage of various game states.
 
 <img src="assests/images/codequiz.gif" alt="gif of the code game!"/>
 
